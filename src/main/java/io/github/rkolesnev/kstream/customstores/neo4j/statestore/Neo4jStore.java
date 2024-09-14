@@ -49,6 +49,8 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.FSDirectory;
 import org.neo4j.configuration.GraphDatabaseSettings;
+import org.neo4j.configuration.connectors.BoltConnector;
+import org.neo4j.configuration.helpers.SocketAddress;
 import org.neo4j.dbms.api.DatabaseManagementService;
 import org.neo4j.dbms.api.DatabaseManagementServiceBuilder;
 import org.neo4j.graphdb.Entity;
@@ -143,8 +145,12 @@ public class Neo4jStore implements StateStore {
     //TODO: hook the path based on store name
     // checks for path / restoration tracking.
 
+    //Bolt connector enables remote connection from visualization tools (e.g. Neo4jBrowser)
+    BoltConnector connector = new BoltConnector();
     managementService = new DatabaseManagementServiceBuilder(
         databaseDirectory)
+        .setConfig(BoltConnector.enabled, true)
+        .setConfig(BoltConnector.listen_address, new SocketAddress("localhost",7688))
         .setConfig(GraphDatabaseSettings.pagecache_memory, ByteUnit.mebiBytes(512))
         .setConfig(GraphDatabaseSettings.transaction_timeout, Duration.ofSeconds(60))
         .setConfig(GraphDatabaseSettings.preallocate_logical_logs, true)
