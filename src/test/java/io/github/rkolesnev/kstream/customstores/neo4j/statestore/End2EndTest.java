@@ -204,6 +204,8 @@ public class End2EndTest {
     assertThat(relationshipPojoList.get(0).direction).isEqualTo(Direction.IN);
     assertThat(relationshipPojoList.get(0).startNodeKey).isEqualTo("user1");
 
+    //Pause to allow exploration in Neo4jBrowser..
+    //await().atMost(Duration.ofSeconds(1200)).until(()->false);
     streamsLatch.countDown();
   }
 }
