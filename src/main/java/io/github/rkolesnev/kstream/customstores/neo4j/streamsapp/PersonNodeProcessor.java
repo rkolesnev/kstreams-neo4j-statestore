@@ -15,7 +15,7 @@ import org.apache.kafka.streams.processor.api.Record;
 import org.neo4j.graphdb.RelationshipType;
 
 @Slf4j
-public class NodeGraphProcessor implements
+public class PersonNodeProcessor implements
     Processor<String, NodeInputPojo, String, String> {
 
   private final String stateStoreName;
@@ -23,7 +23,7 @@ public class NodeGraphProcessor implements
   private Neo4jStore store;
   RelationshipType relationshipType;
 
-  public NodeGraphProcessor(String stateStoreName, RelationshipType relationshipType) {
+  public PersonNodeProcessor(String stateStoreName, RelationshipType relationshipType) {
     this.stateStoreName = stateStoreName;
     this.relationshipType = relationshipType;
   }
@@ -91,9 +91,7 @@ public class NodeGraphProcessor implements
   private boolean createPerson(CreatePersonOp createPersonOp) {
     PersonPojo personPojo = createPersonOp.getPersonPojo();
     String nodeKey = personPojo.getUsername();
-    Map<String, String> properties = Map.of("fullname", personPojo.getFullname(),
-        "defaultFollowerDepth",
-        String.valueOf(personPojo.getDefaultFollowerDepth()));
+    Map<String, String> properties = Map.of("fullname", personPojo.getFullname());
     try {
       store.createNode(nodeKey, properties);
       return true;

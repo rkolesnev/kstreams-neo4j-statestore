@@ -80,9 +80,10 @@ public class Restorer implements StateRestoreCallback {
 
 
   private void handleAddRelationship(AddRelationshipOp entry) {
-    store.relateNodes(entry.getStartNodeKey(), entry.getEndNodeKey(),
+    store.relateNodes(entry.getStartNodeKey(), entry.getEndNodeKey(), entry.getRelationshipKey(),
         RelationshipType.withName(entry.getRelationshipType()),
-        Map.of(store.getRelationshipKeyProperty(), entry.getRelationshipKey()), true, false);
+        Map.of(), true, false);
+    store.updateHighestSeenKey(Long.parseLong(entry.getRelationshipKey()));
   }
 
   private void handleAddNode(AddNodeOp entry) {
