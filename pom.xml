@@ -197,7 +197,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>io.github.rkolesnev.kstream.customstores.lucene.GeoKStreamApp</mainClass>
+              <mainClass>io.github.rkolesnev.kstream.customstores.neo4j.streamsapp.KStreamApp</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

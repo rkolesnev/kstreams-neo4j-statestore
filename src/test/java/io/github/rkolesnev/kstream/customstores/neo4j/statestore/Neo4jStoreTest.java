@@ -40,15 +40,8 @@ class Neo4jStoreTest {
   }
 
   @Test
-  void test() {
-    Neo4jStore store = new Neo4jStore(new NoopChangeLogger(), tempPath);
-    store.doStuff();
-  }
-
-  @Test
   void test2() {
     RelationshipType relationshipType = RelationshipType.withName("rel");
-    Neo4jStore store = new Neo4jStore(new NoopChangeLogger(), tempPath);
     NodePojo first = store.createNode("first", Map.of("prop1", "blah"));
     NodePojo second = store.createNode("second", Map.of());
     RelationshipPojo rel = store.relateNodes("first", "second", relationshipType,
@@ -64,7 +57,6 @@ class Neo4jStoreTest {
 
   @Test
   void testWalkingTheGraphAnyDirection() {
-    Neo4jStore store = new Neo4jStore(new NoopChangeLogger(), tempPath);
     List<String> nodeKeys = List.of("Node0", "Node1", "Node2", "Node3");
     List<String> extraNodesAtLvl2 = List.of("Node2-1", "Node2-2");
     for (String key : nodeKeys) {
